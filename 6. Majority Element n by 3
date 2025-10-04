@@ -1,0 +1,61 @@
+BRUTE 
+
+class Solution {
+    public ArrayList<Integer> findMajority(int[] arr) {
+        Set<Integer> set=new HashSet<>();
+        ArrayList<Integer> list=new ArrayList<>();
+        int n=arr.length;
+        for(int i=0;i<n;i++){
+            int c=1;
+            for(int j=i+1;j<n;j++){
+                if(arr[i]==arr[j]){
+                    c=c+1;
+                }
+            }
+            
+            if(c>(n/3)){
+                set.add(arr[i]);
+                c=0;
+            }
+        }
+        
+        if(set.isEmpty()){
+            list.add(-1);
+        }
+        
+        else{
+            list.addAll(set);
+        }
+        
+        
+        return list;
+    }
+}
+
+
+
+OPTIMIZED
+
+class Solution {
+    public ArrayList<Integer> findMajority(int[] arr) {
+        Map<Integer,Integer> map=new HashMap<>();
+        ArrayList<Integer> list=new ArrayList<>();
+        
+        //Storing the count
+        int n=arr.length;
+        for(int i:arr){
+            map.put(i,map.getOrDefault(i,0)+1);
+        }
+        
+        //Review the count
+        for(Map.Entry<Integer,Integer> entry:map.entrySet()){
+            if(entry.getValue()>(n/3)){
+                list.add(entry.getKey());
+            }
+        }
+        
+        Collections.sort(list);
+        
+        return list;
+    }
+}
