@@ -1,0 +1,46 @@
+// User function Template for Java
+class Solution {
+    public int maximumProfit(int prices[]) {
+        int n=prices.length;
+        int sum=0;
+        for(int i=1;i<n;i++){
+            if(prices[i]>prices[i-1]){
+                int trac=prices[i]-prices[i];
+                sum=sum+trac;
+            }
+        }
+        
+        return sum;
+    }
+}
+
+
+
+🔹 Input:
+prices = [100, 180, 260, 310, 40, 535, 695]
+
+Step 1: Think like a trader
+
+You want to buy when prices are low and sell when they rise.
+
+You can do this multiple times as long as you don’t hold more than one stock at a time.
+
+Step 2: Identify profitable segments
+
+We look for "increasing slopes" (whenever prices[i] > prices[i-1]):
+
+From 100 → 180 → 260 → 310
+
+Keep buying at 100 (the lowest), sell at 310 (the peak).
+
+Profit = 310 - 100 = 210.
+
+Then price drops to 40
+
+Don’t sell at a loss, instead reset: buy at 40.
+
+From 40 → 535 → 695
+
+Buy at 40, sell at 695.
+
+Profit = 695 - 40 = 655.
