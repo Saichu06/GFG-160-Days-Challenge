@@ -1,0 +1,33 @@
+class Solution {
+    public boolean areRotations(String s1, String s2) {
+        int n = s1.length();
+        if (n != s2.length()) return false;
+        if (n == 0) return true; // empty strings
+
+        // Check all rotations using sliding window
+        for (int i = 0; i < n; i++) {
+            boolean match = true;
+            for (int j = 0; j < n; j++) {
+                if (s1.charAt((i + j) % n) != s2.charAt(j)) {
+                    match = false;
+                    break;
+                }
+            }
+            if (match) return true;
+        }
+
+        return false;
+    }
+}
+
+
+class Solution {
+    public boolean areRotations(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        String temp = s1 + s1;
+        return temp.contains(s2);
+    }
+}
+
+
+
