@@ -1,0 +1,39 @@
+class Solution {
+    int countFreq(int[] arr, int target) {
+        // int c=0;
+        // for(int i=0;i<arr.length;i++){
+        //     if(arr[i]==target) c++;
+        // }
+        
+        // return c;
+        
+        int left=0;
+        int right=arr.length-1;
+        int c=0;
+        while(left<=right){
+            int mid=left+(right-left)/2;
+            
+            if(arr[mid]==target) c++;
+            
+            while(target<arr[mid] && target>=arr[left]){
+                if(target>arr[mid]){
+                    left=mid+1;
+                }
+                else{
+                    right=mid-1;
+                }
+            }
+            while(target>arr[mid] && target<=arr[right]){
+                if(target<arr[mid]){
+                    right=mid-1;
+                }
+                else{
+                    left=mid+1;
+                }
+            }
+        }
+        
+        
+        return c;
+    }
+}
