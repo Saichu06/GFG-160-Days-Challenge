@@ -1,0 +1,59 @@
+class Solution {
+    static String decodeString(String s) {
+        // code here
+        Stack<Character> ststr=new Stack<>();
+        Stack<Integer> stint=new Stack<>();
+        StringBuilder ans=new StringBuilder();
+        int cnt=0;
+        String temp="";
+        
+        for(int i=0;i<s.length();i++){
+            char c=s.charAt(i);
+            cnt=0;
+            //number
+            if(Character.isDigit(c)){
+                while(i<s.length() && Character.isDigit(s.charAt(i))){
+                    cnt=cnt*10 + (s.charAt(i)-'0');
+                    i++;
+                }
+                i--;
+                stint.push(cnt);
+            }
+            
+            //closing bracket
+            else if(c==']'){
+                temp="";
+                
+                cnt=stint.pop();
+                
+                //to form the repeated string
+                while(!ststr.peek().equals('[')){
+                    temp=ststr.pop()+temp;
+                }
+                ststr.pop();
+                
+                StringBuilder repeated=new StringBuilder();
+                for(int j=0;j<cnt;j++){
+                    repeated.append(temp);
+                }
+                
+                //transfer it back to string stack
+                for(int j=0;j<repeated.length();j++){
+                    ststr.push(repeated.charAt(j));
+                }
+            }
+            
+            else{
+                ststr.push(c);
+            }
+        }
+        
+        
+        for(Character c:ststr){
+            ans.append(c);
+        }
+        
+        
+        return ans.toString();
+    }
+}
